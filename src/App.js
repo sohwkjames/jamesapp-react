@@ -1,23 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import { useEffect, useState } from "react";
+import noteService from "./services/notes";
+import Notes from "./components/Notes";
 
 function App() {
+  const [notes, setNotes] = useState();
+  useEffect(() => {
+    noteService.getAll().then((data) => {
+      console.log("data ->", data);
+      setNotes(data);
+    });
+  });
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      React App
+      {notes && <Notes notes={notes} />}
     </div>
   );
 }
